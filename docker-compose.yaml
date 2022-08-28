@@ -1,0 +1,45 @@
+version: "3.9"
+services:
+  ui:
+    image: "expenses-ui"
+    container_name: "expenses-ui"
+    ports:
+      - "80:80"
+    networks:
+      - default
+    env_file:
+      - expenses-ui.env
+    depends_on:
+      backend:
+        condition: service_started
+  backend:
+    image: "expenses-backend"
+    container_name: "expenses-backend"
+    ports:
+      - "5265:80"
+    networks:
+      - default
+    env_file:
+      - expenses-backend.env
+    depends_on:
+      database:
+        condition: service_healthy
+  database:
+    image: "mysql:8.0"
+    container_name: "expenses-database"
+    env_file:
+      - expenses-database.env
+    networks:
+      - default
+    volumes:
+      - ${EXPENSES_DATABASE_DATA}:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysql", "-p${MYSQL_ROOT_PASSWORD}", "-e", "SHOW DATABASES"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 5s
+
+networks:
+  default:
+    driver: bridge
