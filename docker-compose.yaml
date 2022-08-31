@@ -27,6 +27,8 @@ services:
   database:
     image: "mysql:8.0"
     container_name: "expenses-database"
+    ports:
+      - "49849:3306"
     env_file:
       - expenses-database.env
     networks:
