@@ -1,0 +1,4 @@
+.env
+expenses-backend.env
+expenses-database.env
+expenses-ui.env
