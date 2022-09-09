@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  backend:
+    image: "${EXPENSES_BACKEND_IMAGE}"
+    container_name: "expenses-backend"
+    ports:
+      - "5265:80"
+    networks:
+      - default
+    env_file:
+      - expenses-backend.env
+    depends_on:
+      database:
+        condition: service_healthy
+
+networks:
+  default:
+    driver: bridge
