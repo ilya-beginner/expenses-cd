@@ -4,7 +4,7 @@ services:
     image: "mysql:8.0.30"
     container_name: "expenses-database"
     ports:
-      - "49849:3306"
+      - "${EXPENSES_DATABASE_PORT}:3306"
     env_file:
       - expenses-database.env
     networks:
@@ -12,7 +12,7 @@ services:
     volumes:
       - ${EXPENSES_DATABASE_DATA}:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysql", "-p${MYSQL_ROOT_PASSWORD}", "-e", "SHOW DATABASES"]
+      test: ["CMD", "mysql", "-p${EXPENSES_DATABASE_MYSQL_ROOT_PASSWORD}", "-e", "SHOW DATABASES"]
       interval: 5s
       timeout: 10s
       retries: 10
