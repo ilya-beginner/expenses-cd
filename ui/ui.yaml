@@ -8,10 +8,8 @@ services:
     networks:
       - default
     env_file:
-      - expenses-ui.env
-    depends_on:
-      backend:
-        condition: service_started
+      - ui.env
+    init: true
 
 networks:
   default:

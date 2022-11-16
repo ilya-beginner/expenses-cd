@@ -1,4 +1,5 @@
 version: "3.9"
+
 services:
   database:
     image: "mysql:8.0.30"
@@ -6,7 +7,7 @@ services:
     ports:
       - "${EXPENSES_DATABASE_PORT}:3306"
     env_file:
-      - expenses-database.env
+      - database.env
     networks:
       - default
     volumes:
@@ -17,6 +18,7 @@ services:
       timeout: 10s
       retries: 10
       start_period: 5s
+    init: true
 
 networks:
   default:

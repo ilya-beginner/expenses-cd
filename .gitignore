@@ -1,4 +1,4 @@
 .env
-expenses-backend.env
-expenses-database.env
-expenses-ui.env
+backend.env
+database.env
+ui.env

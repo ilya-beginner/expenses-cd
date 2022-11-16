@@ -7,12 +7,13 @@ services:
       - "${EXPENSES_BACKEND_PORT}:80"
     networks:
       - default
+      - expenses-database_default
     env_file:
-      - expenses-backend.env
-    depends_on:
-      database:
-        condition: service_healthy
+      - backend.env
+    init: true
 
 networks:
   default:
     driver: bridge
+  expenses-database_default:
+    external: true
